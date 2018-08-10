@@ -22,7 +22,7 @@ function CarController() {
     <div id="cars" class="row"></div>
     `
     document.getElementById('maker').innerHTML = template
-    draw()
+    carService.loadCars(draw)
   }
 
   function draw() {
@@ -49,9 +49,8 @@ function CarController() {
   this.makeCar = function (event) {
     event.preventDefault()
     let formData = event.target
-    carService.makeCar(formData)
+    carService.makeCar(formData, draw)
     formData.reset()
-    draw()
   }
 
 }

@@ -1,6 +1,6 @@
 let app = {
   controllers: {
     carController: new CarController(),
-    jobController: new JobController()
+    // jobController: new JobController()
   }
 }

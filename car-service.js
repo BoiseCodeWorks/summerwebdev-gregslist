@@ -1,5 +1,7 @@
 function CarService() {
 
+  let carService = this
+
   let cars = []
   cars.push(new Car("Ford", "Aspire", "http://placehold.it/200x200", 1970, 200, "It is NOT aspiring to be anything"))
 
@@ -29,17 +31,27 @@ function CarService() {
     return carsCopy
   }
 
+  this.loadCars = function (draw) {
+    $.get('https://bcw-gregslist.herokuapp.com/api/cars').then(res => {
+      cars = res.data
+      draw()
+    })
+  }
 
-  this.makeCar = function (data) {
-    cars.push(new Car(
+  this.makeCar = function (data, draw) {
+    let newCar = new Car(
       data.make.value,
       data.model.value,
       data.imgUrl.value,
       data.year.value,
       data.price.value,
       data.description.value
-    ))
-    console.log(cars)
+    )
+    $.post('https://bcw-gregslist.herokuapp.com/api/cars', newCar).then(res => {
+      console.log(res)
+      carService.loadCars(draw)
+    })
+
   }
 
 }
